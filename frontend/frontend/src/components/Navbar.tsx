@@ -1,21 +1,52 @@
-import {NavLink} from "react-router-dom";
-
-
+import { NavLink } from "react-router-dom";
+import Polo from "../../../../assets/images/Polo.png"
+import "./Navbar.css"
 const Navbar = () => {
   return (
-    <div>
-      <nav className="flex justify-between items-center mb-6">
-        <NavLink to="">
-          <img alt="MongoDB logo" className="h-10 inline" src="https://raw.githubusercontent.com/mongodb-developer/mern-stack-example/603144e25ba5549159d1962601337652a7bfa253/mern/client/src/assets/mongodb.svg"></img>
+    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <div className="container-fluid">
+        <NavLink to="/" className="navbar-brand">
+          <img
+            alt="MongoDB logo"
+            className="h-10 d-inline-block align-middle NAV"
+            src={Polo}
+            
+          />
         </NavLink>
 
-        <NavLink className="inline-flex items-center justify-center whitespace-nowrap text-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-slate-100 h-9 rounded-md px-3" to="/create">
-          Create Employee
-        </NavLink>
-        
-      </nav>
-    </div>
-  )
-}
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
 
-export default Navbar
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav ms-auto">
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/create">
+                Create Employee
+              </NavLink>
+            </li>
+            {/* You can add more links here as needed */}
+          </ul>
+        </div>
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;
+
+
+
+
+
+
+
+

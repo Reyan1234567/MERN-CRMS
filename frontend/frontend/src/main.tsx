@@ -5,6 +5,8 @@ import App from "./App";
 import "./index.css";
 import VehicleList from "./components/vehicles/vehicleList";
 import Vehicle from "./components/vehicles/vehicle";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const router = createBrowserRouter([
   {

@@ -29,8 +29,7 @@ router.get("/:id", async (req, res) => {
 // Create a new vehicle
 router.post("/", async (req, res) => {
   try {
-    const newVehicle = new Vehicle(req.body);
-    const result = await newVehicle.save();
+    const newVehicle = Vehicle.insertOne(req.body);
     res.status(201).json(result);
   } catch (err) {
     console.error(err);
@@ -66,3 +65,12 @@ router.delete("/:id", async (req, res) => {
 });
 
 export default router;
+
+
+
+
+
+
+
+// const newVehicle = new Vehicle(req.body);
+// const result = await newVehicle.save();
