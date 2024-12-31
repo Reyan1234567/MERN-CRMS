@@ -1,4 +1,4 @@
-import {useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 interface VehicleProps {
@@ -62,12 +62,12 @@ const Vehicle = (props: VehicleProps) => (
 );
 
 export default function VehicleList() {
-  const [vehicles, setVehicles] = useState<VehicleProps['vehicle'][]>([]);
+  const [vehicles, setVehicles] = useState<VehicleProps["vehicle"][]>([]);
 
   // This method fetches the records from the database.
   useEffect(() => {
     async function getVehicles() {
-      const response = await fetch(`http://localhost:5050/record/`);
+      const response = await fetch(`http://localhost:8080/api/vehicles/`);
       if (!response.ok) {
         const message = `An error occurred: ${response.statusText}`;
         console.error(message);
@@ -82,11 +82,11 @@ export default function VehicleList() {
 
   // This method will delete a record
   async function deleteVehicle(id: any) {
-    await fetch(`http://localhost:5050/record/${id}`, {
+    await fetch(`http://localhost:8080/api/vehicles/${id}`, {
       method: "DELETE",
     });
     const newVehicles = vehicles.filter((el) => {
-        return el._id !== id;
+      return el._id !== id;
     });
     setVehicles(newVehicles);
   }
@@ -114,28 +114,28 @@ export default function VehicleList() {
             <thead className="[&amp;_tr]:border-b">
               <tr className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
                 <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                vehicleID
+                  vehicleID
                 </th>
                 <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                licensePlate
+                  licensePlate
                 </th>
                 <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                make
+                  make
                 </th>
                 <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                year
+                  year
                 </th>
                 <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                make
+                  make
                 </th>
                 <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                mileage
+                  mileage
                 </th>
                 <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                isOccupied
+                  isOccupied
                 </th>
                 <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                rentalPricePerDay
+                  rentalPricePerDay
                 </th>
                 <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
                   Action

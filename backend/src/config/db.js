@@ -1,8 +1,11 @@
 import mongoose from "mongoose";
 
+
+const MONGO_URI="mongodb+srv://reyann11b:2vJBSrd3nTPPpKQ6@polo.m5eut.mongodb.net/Polo"
+
 const connectDB=async()=>{
     try{
-        await mongoose.connect(process.env.MONGO_URI,{
+        await mongoose.connect(MONGO_URI,{
             useNewUrlParser:true,
             useUnifiedTopology:true
         })

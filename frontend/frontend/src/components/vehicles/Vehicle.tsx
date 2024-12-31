@@ -22,7 +22,7 @@ export default function Vehicle() {
       if (!id) return;
       setIsNew(false);
       const response = await fetch(
-        `http://localhost:5050/record/${id}`
+        `http://localhost:8080/api/vehicles/${id}`
       );
       if (!response.ok) {
         const message = `An error has occurred: ${response.statusText}`;
@@ -53,7 +53,7 @@ export default function Vehicle() {
     try {
       let response;
       if (isNew) {
-        response = await fetch("http://localhost:5050/vehicle", {
+        response = await fetch("http://localhost:8080/api/vehicles/", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -61,7 +61,7 @@ export default function Vehicle() {
           body: JSON.stringify(vehicle),
         });
       } else {
-        response = await fetch(`http://localhost:5050/vehicle/${params.id}`, {
+        response = await fetch(`http://localhost:8080/api/vehicles/${params.id}`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
@@ -449,7 +449,7 @@ export default function Vehicle() {
 //       if (!id) return;
 //       setIsNew(false);
 //       const response = await fetch(
-//         `http://localhost:5050/record/${params.id.toString()}`
+//         `http://localhost:8080/record/${params.id.toString()}`
 //       );
 //       if (!response.ok) {
 //         const message = `An error has occurred: ${response.statusText}`;
@@ -483,7 +483,7 @@ export default function Vehicle() {
 //       let response;
 //       if (isNew) {
 //         // if we are adding a new record we will POST to /record.
-//         response = await fetch("http://localhost:5050/vehicle", {
+//         response = await fetch("http://localhost:8080/vehicle", {
 //           method: "POST",
 //           headers: {
 //             "Content-Type": "application/json",
@@ -492,7 +492,7 @@ export default function Vehicle() {
 //         });
 //       } else {
 //         // if we are updating a record we will PATCH to /record/:id.
-//         response = await fetch(`http://localhost:5050/vehicle/${params.id}`, {
+//         response = await fetch(`http://localhost:8080/vehicle/${params.id}`, {
 //           method: "PATCH",
 //           headers: {
 //             "Content-Type": "application/json",
