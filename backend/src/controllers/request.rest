@@ -1,0 +1,12 @@
+POST http://localhost:8080/api/drivers
+Content-Type: application/json
+
+{
+  "driverID": "1234",
+  "name": "Reyan",
+  "licenseNumber": "345",
+  "phone": "0978344283",
+  "email": "re9yanm@gmail.com",
+  "status": false
+}
+

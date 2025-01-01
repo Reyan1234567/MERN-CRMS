@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import vehicleRoutes from "./controllers/vehicleController.js"; // Adjust path as needed
+import driverRoutes from "./controllers/driverController.js"; // Adjust path as needed
 
 dotenv.config();
 
@@ -14,6 +15,7 @@ app.use(express.json());
 
 // Routes
 app.use("/api/vehicles", vehicleRoutes);
+app.use("/api/drivers", driverRoutes);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {

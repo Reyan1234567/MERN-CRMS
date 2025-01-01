@@ -29,7 +29,7 @@ export default function Vehicle() {
       const vehicle = await response.json();
       if (!vehicle) {
         console.warn(`Vehicle with id ${id} not found`);
-        navigate("/");
+        navigate("/vehicles");
         return;
       }
       setForm(vehicle);
@@ -85,7 +85,7 @@ export default function Vehicle() {
         isOccupied: "",
         rentalPricePerDay: "",
       });
-      navigate("/");
+      navigate("/vehicles");
     }
   }
 
@@ -227,7 +227,7 @@ export default function Vehicle() {
           </div>
         </div>
 
-        <button type="submit" className="btn btn-primary">
+        <button onClick={(e)=>{onSubmit(e)}} type="submit" className="btn btn-primary">
           {isNew ? "Save Vehicle Record" : "Update Vehicle Record"}
         </button>
       </form>

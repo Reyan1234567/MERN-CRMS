@@ -29,11 +29,8 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
-              <NavLink className="nav-link" to="/create">
-                Create Employee
-              </NavLink>
+
             </li>
-            {/* You can add more links here as needed */}
           </ul>
         </div>
       </div>
@@ -42,6 +39,12 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
+
+{/* <NavLink className="nav-link" to="/create">
+Create Employee
+</NavLink> */}
 
 
 

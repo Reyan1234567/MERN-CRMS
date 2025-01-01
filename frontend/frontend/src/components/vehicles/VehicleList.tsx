@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 interface VehicleProps {
   vehicle: {
@@ -28,7 +28,7 @@ const Vehicle = (props: VehicleProps) => (
       <div className="d-flex gap-2">
         <Link
           className="btn btn-warning btn-sm"
-          to={`/edit/${props.vehicle._id}`}
+          to={`/vehicles/edit/${props.vehicle._id}`}
         >
           Edit
         </Link>
@@ -84,10 +84,14 @@ export default function VehicleList() {
       );
     });
   }
-
   return (
     <>
-      <h3 className="mb-4">Vehicles</h3>
+      <div className="d-flex justify-content-between">
+        <h3 className="mb-4">Vehicles</h3>
+        <NavLink className="nav-link" to="/vehicles/create">
+          <button className="btn btn-outline-secondary">Create Vehicle</button>
+        </NavLink>
+      </div>
       <div className="table-responsive">
         <table className="table table-striped table-bordered">
           <thead className="table-dark">
@@ -108,61 +112,3 @@ export default function VehicleList() {
     </>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
