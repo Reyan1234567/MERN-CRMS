@@ -8,7 +8,7 @@ interface DriverProps {
     licenseNumber: String;
     phone: String;
     email: String;
-    status: Boolean;
+    status: String;
     _id: string;
   };
   deleteDriver: (id: string) => void;
@@ -21,7 +21,7 @@ const Driver = (props: DriverProps) => (
     <td>{props.driver.licenseNumber}</td>
     <td>{props.driver.phone}</td>
     <td>{props.driver.email}</td>
-    <td>{props.driver.status ? "Active" : "Inactive"}</td>
+    <td>{props.driver.status}</td>
     <td>
       <div className="d-flex gap-2">
         <Link

@@ -40,7 +40,7 @@ export default function Vehicle() {
 
   function updateForm(value: any) {
     return setForm((prev) => {
-      return { ...prev, ...value };
+      return { ...prev, ...value};
     });
   }
 
@@ -200,13 +200,13 @@ export default function Vehicle() {
                   id="isOccupiedYes"
                   name="isOccupied"
                   type="radio"
-                  value="Yes"
+                  value="Occupied"
                   className="form-check-input"
-                  checked={form.isOccupied === "Yes"}
+                  checked={form.isOccupied === "Occupied"}
                   onChange={(e) => updateForm({ isOccupied: e.target.value })}
                 />
                 <label htmlFor="isOccupiedYes" className="form-check-label">
-                  Yes
+                  Occupied
                 </label>
               </div>
               <div className="form-check form-check-inline">
@@ -214,19 +214,18 @@ export default function Vehicle() {
                   id="isOccupiedNo"
                   name="isOccupied"
                   type="radio"
-                  value="No"
+                  value="Not occupied"
                   className="form-check-input"
-                  checked={form.isOccupied === "No"}
+                  checked={form.isOccupied === "Not occupied"}
                   onChange={(e) => updateForm({ isOccupied: e.target.value })}
                 />
                 <label htmlFor="isOccupiedNo" className="form-check-label">
-                  No
+                Not occupied
                 </label>
               </div>
             </fieldset>
           </div>
         </div>
-
         <button onClick={(e)=>{onSubmit(e)}} type="submit" className="btn btn-primary">
           {isNew ? "Save Vehicle Record" : "Update Vehicle Record"}
         </button>

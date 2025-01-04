@@ -1,12 +1,5 @@
-POST http://localhost:8080/api/drivers
+DELETE http://localhost:8080/api/booking/6778da2a544dbffd6c993329
 Content-Type: application/json
+Authorization:`Bearer ${token}`
 
-{
-  "driverID": "1234",
-  "name": "Reyan",
-  "licenseNumber": "345",
-  "phone": "0978344283",
-  "email": "re9yanm@gmail.com",
-  "status": false
-}
 

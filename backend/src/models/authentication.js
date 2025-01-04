@@ -1,10 +1,12 @@
-import mongoose from "mongoose"
+// models/Authentication.js
+import mongoose from 'mongoose';
 
-const authenticationSchema=new mongoose.Schema({
-    userID:{type:String, required:true},
-    password:{type:String, required:true}
-})
+const authenticationSchema = new mongoose.Schema({
+  userID: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  role: { type: String, enum: ['user', 'admin'], default: 'user' },
+});
 
-const Authentication=mongoose.model('authentication',authenticationSchema)
+const Authentication = mongoose.model('Authentication', authenticationSchema);
 
-module.exports=Authentication
+export default Authentication;

@@ -8,7 +8,7 @@ interface VehicleProps {
     make: string;
     year: number;
     mileage: number;
-    isOccupied: boolean;
+    isOccupied: String;
     rentalPricePerDay: number;
     _id: string;
   };
@@ -22,7 +22,7 @@ const Vehicle = (props: VehicleProps) => (
     <td>{props.vehicle.make}</td>
     <td>{props.vehicle.year}</td>
     <td>{props.vehicle.mileage}</td>
-    <td>{props.vehicle.isOccupied ? "Occupied" : "Available"}</td>
+    <td>{props.vehicle.isOccupied}</td>
     <td>{props.vehicle.rentalPricePerDay}</td>
     <td>
       <div className="d-flex gap-2">
@@ -51,7 +51,7 @@ export default function VehicleList() {
 
   useEffect(() => {
     async function getVehicles() {
-      const response = await fetch(`http://localhost:8080/api/vehicles/`);
+      const response = await fetch(`http://localhost:8080/api/vehicles`);
       if (!response.ok) {
         const message = `An error occurred: ${response.statusText}`;
         console.error(message);

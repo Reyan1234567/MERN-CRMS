@@ -1,40 +1,44 @@
 /* Aside.css */
 
 .aside {
-    width: 250px;
-    height: 100vh;
-    background-color: #212529;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-  }
-  
-  nav {
-    flex: 1;
-  }
-  
-  ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  li {
-    margin-bottom: 20px;
-  }
-  
-  a {
-    color: #adb5bd;
-    text-decoration: none;
-    font-size: 18px;
-    transition: color 0.3s ease-in-out;
-  }
-  
-  a:hover {
-    color: #fff;
-  }
-  
-  .active {
-    color: #e46103;
-  }
-  
+  width: 250px;
+  height: 100vh;
+  background-color: #212529;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+nav {
+  flex: 1;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 20px;
+}
+
+a {
+  color: #c7c7c7;
+  text-decoration: none;
+  font-size: 18px;
+  transition: color 0.3s ease-in-out;
+}
+
+a:hover {
+  color: #ffbe90;
+}
+
+.white {
+  color: white;
+  font-style: bold;
+  text-decoration: none;
+}
+.active {
+  color: #e46103;
+}

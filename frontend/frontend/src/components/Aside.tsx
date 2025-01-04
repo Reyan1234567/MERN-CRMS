@@ -6,33 +6,23 @@ export default function Aside() {
       <nav>
         <ul>
           <li>
-            <NavLink to="/" activeClassName="active">
+            <NavLink to="/dashboard" className={ ({ isActive }) => isActive ? "active white" : "white" }>
               Dashboard
             </NavLink>
           </li>
           <li>
-            <NavLink to="/drivers" activeClassName="active">
+            <NavLink to="/drivers" className={ ({ isActive }) => isActive ? "active white" : "white" }>
               Drivers
             </NavLink>
           </li>
           <li>
-            <NavLink to="/vehicles" activeClassName="active">
+            <NavLink to="/vehicles" className={ ({ isActive }) => isActive ? "active white" : "white" }>
               Vehicles
             </NavLink>
           </li>
           <li>
-            <NavLink to="/rentals" activeClassName="active">
-              Rentals
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/reports" activeClassName="active">
-              Reports
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/settings" activeClassName="active">
-              Settings
+            <NavLink to="/booking" className={ ({ isActive }) => isActive ? "active white" : "white" }>
+              Booking
             </NavLink>
           </li>
         </ul>

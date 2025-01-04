@@ -1,13 +1,13 @@
 import mongoose from "mongoose";
 
 const vehicleSchema = new mongoose.Schema({
-  vehicleID: String,
-  licensePlate: String,
-  make: String,
-  year: Number,
-  mileage: Number,
-  isOccupied: Boolean,
-  rentalPricePerDay: Number,
+  vehicleID: { type: String, required: true },
+  licensePlate: { type: String, required: true },
+  make: { type: String, required: true },
+  year: { type: Number, required: true },
+  mileage: { type: Number, required: true },
+  isOccupied: { type: String },
+  rentalPricePerDay: { type: Number, required: true },
 });
 
 const Vehicle = mongoose.model("Vehicle", vehicleSchema);
