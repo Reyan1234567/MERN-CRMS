@@ -3,6 +3,16 @@ import Vehicle from "../models/vehicles.js";
 
 const router = express.Router();
 
+router.get("/num", async (req, res) => { 
+  try {
+      const vehicles = await Vehicle.find(); 
+      res.status(200).json(vehicles.length); 
+  } catch (err) {
+      console.error(err);
+      res.status(500).send('Error fetching vehicles');
+  }
+});
+
 router.get("/", async (req, res) => {
   try {
     const vehicles = await Vehicle.find();
@@ -34,9 +44,6 @@ router.post("/", async (req, res) => {
     res.status(500).send("Error adding record");
   }
 });
-
-// const ACT = "aslkflq0urq0wij04jg0iherih0eqrhwe0rgh0eafjqwfopifog";
-
 
 router.patch("/:id", async (req, res) => {
   try {

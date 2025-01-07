@@ -11,5 +11,4 @@ const inspectionsSchema = new mongoose.Schema({
 });
 
 const Inspections = mongoose.model('Inspections', inspectionsSchema);
-
-module.exports = Inspections;
+export default Inspections;

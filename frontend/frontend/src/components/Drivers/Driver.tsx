@@ -11,6 +11,7 @@ export default function Driver() {
     status: "",
   });
   const [isNew, setIsNew] = useState(true);
+  const [errors, setErrors] = useState({});
   const params = useParams();
   const navigate = useNavigate();
 
@@ -37,14 +38,31 @@ export default function Driver() {
     return;
   }, [params.id, navigate]);
 
-  function updateForm(value: any) {
-    return setForm((prev) => {
-      return { ...prev, ...value };
-    });
+  function updateForm(value) {
+    setForm((prev) => ({
+      ...prev,
+      ...value,
+    }));
   }
 
-  async function onSubmit(e: any) {
+  function validateForm() {
+    const newErrors = {};
+    if (!form.driverID.trim()) newErrors.driverID = "Driver ID is required.";
+    if (!form.name.trim()) newErrors.name = "Name is required.";
+    if (!form.licenseNumber.trim())
+      newErrors.licenseNumber = "License Number is required.";
+    if (!form.phone.trim()) newErrors.phone = "Phone is required.";
+    if (!form.email.trim()) newErrors.email = "Email is required.";
+    if (!form.status) newErrors.status = "Status is required.";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  }
+
+  async function onSubmit(e) {
     e.preventDefault();
+    if (!validateForm()) return;
+
     const driver = { ...form };
     try {
       let response;
@@ -108,11 +126,14 @@ export default function Driver() {
               type="text"
               name="driverID"
               id="driverID"
-              className="form-control"
+              className={`form-control ${errors.driverID ? "is-invalid" : ""}`}
               placeholder="Driver ID"
               value={form.driverID}
               onChange={(e) => updateForm({ driverID: e.target.value })}
             />
+            {errors.driverID && (
+              <div className="invalid-feedback">{errors.driverID}</div>
+            )}
           </div>
 
           <div className="mb-3">
@@ -123,11 +144,14 @@ export default function Driver() {
               type="text"
               name="name"
               id="name"
-              className="form-control"
+              className={`form-control ${errors.name ? "is-invalid" : ""}`}
               placeholder="Name"
               value={form.name}
               onChange={(e) => updateForm({ name: e.target.value })}
             />
+            {errors.name && (
+              <div className="invalid-feedback">{errors.name}</div>
+            )}
           </div>
 
           <div className="mb-3">
@@ -138,11 +162,16 @@ export default function Driver() {
               type="text"
               name="licenseNumber"
               id="licenseNumber"
-              className="form-control"
+              className={`form-control ${
+                errors.licenseNumber ? "is-invalid" : ""
+              }`}
               placeholder="License Number"
               value={form.licenseNumber}
               onChange={(e) => updateForm({ licenseNumber: e.target.value })}
             />
+            {errors.licenseNumber && (
+              <div className="invalid-feedback">{errors.licenseNumber}</div>
+            )}
           </div>
 
           <div className="mb-3">
@@ -153,11 +182,14 @@ export default function Driver() {
               type="text"
               name="phone"
               id="phone"
-              className="form-control"
+              className={`form-control ${errors.phone ? "is-invalid" : ""}`}
               placeholder="Phone"
               value={form.phone}
               onChange={(e) => updateForm({ phone: e.target.value })}
             />
+            {errors.phone && (
+              <div className="invalid-feedback">{errors.phone}</div>
+            )}
           </div>
 
           <div className="mb-3">
@@ -168,11 +200,14 @@ export default function Driver() {
               type="email"
               name="email"
               id="email"
-              className="form-control"
+              className={`form-control ${errors.email ? "is-invalid" : ""}`}
               placeholder="Email"
               value={form.email}
               onChange={(e) => updateForm({ email: e.target.value })}
             />
+            {errors.email && (
+              <div className="invalid-feedback">{errors.email}</div>
+            )}
           </div>
 
           <div className="mb-4">
@@ -180,50 +215,43 @@ export default function Driver() {
               <legend className="sr-only">Driver Status</legend>
               <div className="form-check form-check-inline">
                 <input
-                  id="statusActive"
+                  id="statusAssigned"
                   name="status"
                   type="radio"
-                  value="Active"
+                  value="Assigned"
                   className="form-check-input"
-                  checked={form.status === "Active"}
+                  checked={form.status === "Assigned"}
                   onChange={(e) => updateForm({ status: e.target.value })}
                 />
-                <label htmlFor="statusActive" className="form-check-label">
-                  Active
+                <label htmlFor="statusAssigned" className="form-check-label">
+                  Assigned
                 </label>
               </div>
               <div className="form-check form-check-inline">
                 <input
-                  id="statusInactive"
+                  id="statusNotAssigned"
                   name="status"
                   type="radio"
-                  value="Inactive"
+                  value="NotAssigned"
                   className="form-check-input"
-                  checked={form.status === "Inactive"}
+                  checked={form.status === "NotAssigned"}
                   onChange={(e) => updateForm({ status: e.target.value })}
                 />
-                <label htmlFor="statusInactive" className="form-check-label">
-                  Inactive
+                <label htmlFor="statusNotAssigned" className="form-check-label">
+                  NotAssigned
                 </label>
               </div>
+              {errors.status && (
+                <div className="text-danger mt-2">{errors.status}</div>
+              )}
             </fieldset>
           </div>
         </div>
 
-        <button onClick={(e)=>{onSubmit(e)}} type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary">
           {isNew ? "Save Driver Record" : "Update Driver Record"}
         </button>
       </form>
     </>
   );
 }
-
-
-
-
-
-
-
-
-
-

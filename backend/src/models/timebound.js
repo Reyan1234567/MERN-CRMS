@@ -8,4 +8,4 @@ const timeboundSchema = new mongoose.Schema({
 
 const Timebound = mongoose.model('Timebound', timeboundSchema);
 
-module.exports = Timebound;
+export default Timebound;

@@ -5,7 +5,6 @@ import Authentication from "../models/authentication.js";
 
 const router = express.Router();
 
-// Environment variable for token secret
 const ACT="aslkflq0urq0wij04jg0iherih0eqrhwe0rgh0eafjqwfopifog"
 
 router.post("/", async (req, res) => {

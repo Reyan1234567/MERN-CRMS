@@ -1,6 +1,7 @@
 import mongoose from "mongoose"
 
 const bookingSchema=new mongoose.Schema({
+
     bookingID:String, 
     vehicleID:String, 
     driverID:String, 

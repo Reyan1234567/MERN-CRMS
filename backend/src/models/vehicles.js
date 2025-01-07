@@ -7,6 +7,8 @@ const vehicleSchema = new mongoose.Schema({
   year: { type: Number, required: true },
   mileage: { type: Number, required: true },
   isOccupied: { type: String },
+  startDate:{type: Date},
+  endDate:{type: Date},
   rentalPricePerDay: { type: Number, required: true },
 });
 

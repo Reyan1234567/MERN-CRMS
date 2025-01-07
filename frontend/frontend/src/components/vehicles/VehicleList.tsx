@@ -8,8 +8,10 @@ interface VehicleProps {
     make: string;
     year: number;
     mileage: number;
-    isOccupied: String;
+    isOccupied: string;
     rentalPricePerDay: number;
+    startDate: Date;
+    endDate: Date;
     _id: string;
   };
   deleteVehicle: (id: string) => void;
@@ -24,6 +26,8 @@ const Vehicle = (props: VehicleProps) => (
     <td>{props.vehicle.mileage}</td>
     <td>{props.vehicle.isOccupied}</td>
     <td>{props.vehicle.rentalPricePerDay}</td>
+    <td>{props.vehicle.startDate || "N/A"}</td>
+    <td>{props.vehicle.endDate || "N/A"}</td>
     <td>
       <div className="d-flex gap-2">
         <Link
@@ -84,6 +88,7 @@ export default function VehicleList() {
       );
     });
   }
+
   return (
     <>
       <div className="d-flex justify-content-between">
@@ -103,6 +108,8 @@ export default function VehicleList() {
               <th>mileage</th>
               <th>isOccupied</th>
               <th>rentalPricePerDay</th>
+              <th>startDate</th>
+              <th>endDate</th>
               <th>Action</th>
             </tr>
           </thead>

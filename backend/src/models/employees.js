@@ -1,14 +1,14 @@
 import mongoose from "mongoose";
 
 const employeesSchema = new mongoose.Schema({
-    employeeID: { type: String, required: true },
+    userID: { type: String, required: true },
     name: { type: String, required: true },
     role: { type: String, required: true },
-    phone: { type: String, required: true },
+    phoneNumber: { type: String, required: true },
     email: { type: String, required: true },
-    status: { type: String, required: true }, // e.g., "Active" or "Inactive"
+    status: { type: String, required: true }, 
 });
 
-const Employees = mongoose.model('Employees', employeesSchema);
+const Employee = mongoose.model('Employee', employeesSchema);
 
-module.exports = Employees;
+export default Employee;

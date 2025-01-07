@@ -6,6 +6,16 @@ import authorizeRole from "../middlewares/authorizeRole.js"
 
 const router = express.Router();
 
+router.get('/sum', async (req, res) => {
+  try {
+    const bookings = await Booking.find();
+    res.status(200).json(bookings);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error fetching records');
+  }
+});
+
 router.get('/', async (req, res) => {
   try {
     const bookings = await Booking.find();

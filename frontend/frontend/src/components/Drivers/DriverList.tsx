@@ -84,15 +84,13 @@ export default function VehicleList() {
   }
   return (
     <>
-      <div className="d-flex justify-around">
+      <div className="d-flex justify-content-between">
         <h3 className="mb-4">Drivers</h3>
-        <div className="d-flex justify-content-between">
-          <h3 className="mb-4">Vehicles</h3>
-          <NavLink className="nav-link" to="/drivers/create">
-            <button className="btn btn-outline-secondary">Create Driver</button>
-          </NavLink>
-        </div>
+        <NavLink className="nav-link" to="/drivers/create">
+          <button className="btn btn-outline-secondary">Create Driver</button>
+        </NavLink>
       </div>
+
       <div className="table-responsive">
         <table className="table table-striped table-bordered">
           <thead className="table-dark">

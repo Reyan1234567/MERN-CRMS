@@ -8,6 +8,13 @@ import driverRoutes from "./controllers/driverController.js";
 import bookingRoutes from "./controllers/bookingController.js";
 import loginRoutes from "./controllers/loginController.js";
 import registerRoutes from "./controllers/registerController.js";
+import employeeRoutes from "./controllers/employeeController.js";
+import inspectionRoutes from "./controllers/inspectionController.js";
+import inventoryRoutes from "./controllers/inventoryController.js";
+import timeboundRoutes from "./controllers/timeboundController.js";
+import priceRoutes from "./controllers/priceController.js";
+
+
 
 
 dotenv.config();
@@ -24,6 +31,14 @@ app.use("/api/drivers", driverRoutes);
 app.use("/api/booking", bookingRoutes);
 app.use("/api/login", loginRoutes);
 app.use("/api/register", registerRoutes);
+app.use("/api/employee", employeeRoutes);
+app.use("/api/inspection", inspectionRoutes);
+app.use("/api/inventory", inventoryRoutes);
+app.use("/api/timebound", timeboundRoutes);
+app.use("/api/price", priceRoutes);
+
+
+
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {

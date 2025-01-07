@@ -92,15 +92,12 @@ export default function BookingList() {
 
   return (
     <>
-      <div className="d-flex justify-around">
-        <h3 className="mb-4">Bookings</h3>
         <div className="d-flex justify-content-between">
-          <h3 className="mb-4">Create Booking</h3>
+        <h3 className="mb-4">Bookings</h3>
           <NavLink className="nav-link" to="/booking/create">
             <button className="btn btn-outline-secondary">Create Booking</button>
           </NavLink>
         </div>
-      </div>
       <div className="table-responsive">
         <table className="table table-striped table-bordered">
           <thead className="table-dark">
