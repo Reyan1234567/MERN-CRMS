@@ -4,6 +4,7 @@ const timeboundSchema = new mongoose.Schema({
     timeBoundID: { type: String, required: true },
     date: { type: Date, required: true },
     description: { type: String, required: true },
+    amount:{ type: Number, required:true}
 });
 
 const Timebound = mongoose.model('Timebound', timeboundSchema);

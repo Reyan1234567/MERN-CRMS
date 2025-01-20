@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 
-const MONGO_URI="mongodb://localhost:27017/Polo"
+const MONGO_URI="mongodb+srv://reyann11b:2vJBSrd3nTPPpKQ6@polo.m5eut.mongodb.net/Polo" 
 
 const connectDB=async()=>{
     try{

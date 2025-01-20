@@ -11,7 +11,6 @@ import DriverList from "./components/Drivers/DriverList";
 import Driver from "./components/Drivers/Driver";
 import BookingList from "./components/Booking/BookingList";
 import Booking1 from "./components/Booking/Booking1";
-import Booking2 from "./components/Booking/Booking2";
 import Login from "./components/Authorization/Login";
 import Register from "./components/Authorization/Register";
 import EmployeeList from "./components/Employees/EmployeeList";

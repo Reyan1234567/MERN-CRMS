@@ -7,7 +7,6 @@ const bookingSchema=new mongoose.Schema({
     driverID:String, 
     startDate:Date, 
     endDate:Date, 
-    totalPrice:Number, 
     status:String
 })
 

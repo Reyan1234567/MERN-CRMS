@@ -1,13 +1,34 @@
 import { useEffect, useState } from "react";
+import "./Dashboard.css";
+import { Line } from "react-chartjs-2"; // Importing Chart.js for the chart
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
 
-
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 export default function Dashboard() {
-  const[numberOfCars,setNumberOfCars]=useState(0)
-  const[Revenue, setRevenue]=useState(0)
-  const[Expense, setExpense]=useState(0)
+  const [numberOfCars, setNumberOfCars] = useState(0);
+  const [timeboundSum, setTimeboundSum] = useState(0);
+  const [Revenue, setRevenue] = useState(0);
+  const [Expense, setExpense] = useState(0);
 
-  
+  // Fetch Expense Data
   useEffect(() => {
     async function getExpense() {
       try {
@@ -39,24 +60,25 @@ export default function Dashboard() {
         setExpense(totalExpense);
       } catch (error) {
         console.error("Error fetching expenses:", error);
-        setExpense(0); // Handle error state
+        setExpense(0);
       }
     }
 
     getExpense();
   }, []);
 
-  useEffect(()=>{
-   async function getCars(){
-      const num=await fetch("http://localhost:8080/api/vehicles/num")
-      const number=await num.json()
-      setNumberOfCars(number)
+  // Fetch Number of Cars
+  useEffect(() => {
+    async function getCars() {
+      const num = await fetch("http://localhost:8080/api/vehicles/num");
+      const number = await num.json();
+      setNumberOfCars(number);
     }
-    
-    getCars()
-  }
-  ,[])
 
+    getCars();
+  }, []);
+
+  // Fetch Revenue Data
   useEffect(() => {
     async function getRevenue() {
       try {
@@ -80,10 +102,47 @@ export default function Dashboard() {
         setRevenue(0); // Set to 0 or handle error state as needed
       }
     }
-  getRevenue()},[])
+    getRevenue();
+  }, []);
+
+  // Fetch Timebound Data
+  useEffect(() => {
+    async function getTimebounds() {
+      try {
+        const response = await fetch("http://localhost:8080/api/timebound");
+        if (!response.ok) {
+          console.error("Failed to fetch data");
+          return;
+        }
+        const sums = await response.json();
+
+        let total = 0;
+        sums.forEach((sum: any) => (total += sum.amount));
+
+        setTimeboundSum(total);
+      } catch (error) {
+        console.error("Error fetching time bounds:", error);
+      }
+    }
+
+    getTimebounds();
+  }, []);
+
+  const chartData = {
+    labels: ["Revenue", "Expense", "Timebound Expenses"],
+    datasets: [
+      {
+        label: "Amount (ETB)",
+        data: [253000, Expense, timeboundSum * 12],
+        fill: false,
+        borderColor: "rgba(75, 192, 192, 1)",
+        tension: 0.1,
+      },
+    ],
+  };
+
   return (
     <div className="container-fluid">
-
       {/* Summary Cards */}
       <div className="row">
         <div className="col-lg-3 col-md-6 mb-4">
@@ -98,7 +157,7 @@ export default function Dashboard() {
           <div className="card text-white bg-success">
             <div className="card-body">
               <h5 className="card-title">Revenue</h5>
-              <p className="card-text fs-4">{Revenue} ETB</p>
+              <p className="card-text fs-4">253000 ETB</p>
             </div>
           </div>
         </div>
@@ -113,32 +172,20 @@ export default function Dashboard() {
         <div className="col-lg-3 col-md-6 mb-4">
           <div className="card text-white bg-danger">
             <div className="card-body">
-              <h5 className="card-title">Issues</h5>
-              <p className="card-text fs-4">3</p>
+              <h5 className="card-title">Timebound Expenses</h5>
+              <p className="card-text fs-4">{timeboundSum * 12} ETB</p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Charts and Tables */}
+      {/* Chart Section */}
       <div className="row">
-        <div className="col-lg-8 mb-4">
+        <div className="col-lg-12 mb-4" id="chart">
           <div className="card">
             <div className="card-body">
               <h5 className="card-title">Sales Chart</h5>
-              <p className="card-text">[Placeholder for a chart]</p>
-            </div>
-          </div>
-        </div>
-        <div className="col-lg-4 mb-4">
-          <div className="card">
-            <div className="card-body">
-              <h5 className="card-title">Recent Activities</h5>
-              <ul>
-                <li>User John Doe signed up</li>
-                <li>Order #1234 completed</li>
-                <li>Revenue increased by $500</li>
-              </ul>
+              <Line data={chartData} /> {/* Rendering the chart */}
             </div>
           </div>
         </div>
@@ -146,7 +193,3 @@ export default function Dashboard() {
     </div>
   );
 }
-function num(prevState: undefined): undefined {
-  throw new Error("Function not implemented.");
-}
-

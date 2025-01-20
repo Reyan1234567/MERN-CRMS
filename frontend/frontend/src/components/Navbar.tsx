@@ -7,7 +7,7 @@ const Navbar = () => {
       <div className="container-fluid">
         <NavLink to="/" className="navbar-brand">
           <img
-            alt="MongoDB logo"
+            alt="Polo logo"
             className="h-10 d-inline-block align-middle NAV"
             src={Polo}
             

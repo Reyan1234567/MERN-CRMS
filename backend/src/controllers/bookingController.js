@@ -62,7 +62,7 @@ router.patch('/:id', async (req, res) => {
   }
 });
 
-router.delete('/:id',authenticateToken,authorizeRole("user"),async (req, res) => {
+router.delete('/:id',authenticateToken, async (req, res) => {
   try {
     const result = await Booking.findByIdAndDelete(req.params.id);
     if (!result) return res.status(404).send('Not found');

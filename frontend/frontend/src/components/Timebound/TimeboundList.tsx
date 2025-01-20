@@ -6,6 +6,7 @@ interface TimeboundProps {
     timeBoundID: String;
     date: String;
     description: String;
+    amount: string;
     _id: string;
   };
   deleteTimebound: (id: string) => void;
@@ -16,11 +17,12 @@ const Timebound = (props: TimeboundProps) => (
     <td>{props.timebound.timeBoundID}</td>
     <td>{props.timebound.date}</td>
     <td>{props.timebound.description}</td>
+    <td>{props.timebound.amount}</td>
     <td>
       <div className="d-flex gap-2">
         <Link
           className="btn btn-warning btn-sm"
-          to={`/timebounds/edit/${props.timebound._id}`}
+          to={`/timebound/edit/${props.timebound._id}`}
         >
           Edit
         </Link>
@@ -83,7 +85,7 @@ export default function TimeboundList() {
     <>
       <div className="d-flex justify-content-between">
         <h3 className="mb-4">Timebounds</h3>
-        <NavLink className="nav-link" to="/timebounds/create">
+        <NavLink className="nav-link" to="/timebound/create">
           <button className="btn btn-outline-secondary">Create Timebound</button>
         </NavLink>
       </div>
@@ -94,6 +96,7 @@ export default function TimeboundList() {
               <th>Timebound ID</th>
               <th>Date</th>
               <th>Description</th>
+              <th>Amount</th>
               <th>Action</th>
             </tr>
           </thead>

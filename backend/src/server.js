@@ -14,9 +14,6 @@ import inventoryRoutes from "./controllers/inventoryController.js";
 import timeboundRoutes from "./controllers/timeboundController.js";
 import priceRoutes from "./controllers/priceController.js";
 
-
-
-
 dotenv.config();
 
 const app = express();

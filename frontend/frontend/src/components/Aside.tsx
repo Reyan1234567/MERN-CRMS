@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./Aside.css";
 
 export default function Aside() {
+
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 
   return (
@@ -67,17 +68,6 @@ export default function Aside() {
           </li>
           <li>
             <NavLink
-              to="/prices"
-              className={({ isActive }) =>
-                isActive ? "active white" : "white"
-              }
-            >
-              Price
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink
               to="/drivers"
               className={({ isActive }) =>
                 isActive ? "active white" : "white"
@@ -118,6 +108,8 @@ export default function Aside() {
           </li>
         </ul>
       </nav>
+      <Link to="/"><button className="btn btn-primary">Logout</button></Link>
+      
     </aside>
   );
 }

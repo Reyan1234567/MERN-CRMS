@@ -8,13 +8,12 @@ interface BookingProps {
     driverID: String;
     startDate: Date;
     endDate: Date;
-    totalPrice: number;
     status: String;
     _id: string;
   };
   deleteBooking: (id: string) => void;
 }
-
+const token = localStorage.getItem("accessToken");
 const Booking = (props: BookingProps) => (
   <tr>
     <td>{props.booking.bookingID}</td>
@@ -22,13 +21,12 @@ const Booking = (props: BookingProps) => (
     <td>{props.booking.driverID}</td>
     <td>{new Date(props.booking.startDate).toLocaleDateString()}</td>
     <td>{new Date(props.booking.endDate).toLocaleDateString()}</td>
-    <td>{props.booking.totalPrice}</td>
     <td>{props.booking.status}</td>
     <td>
       <div className="d-flex gap-2">
         <Link
           className="btn btn-warning btn-sm"
-          to={`/booking/edit/${props.booking._id}`}
+          to={`/booking1/edit/${props.booking._id}`}
         >
           Edit
         </Link>
@@ -51,7 +49,7 @@ export default function BookingList() {
 
   useEffect(() => {
     async function getBookings() {
-      const response = await fetch(`http://localhost:8080/api/booking/`);
+      const response = await fetch(`http://localhost:8080/api/booking`);
       if (!response.ok) {
         const message = `An error occurred: ${response.statusText}`;
         console.error(message);
@@ -64,7 +62,6 @@ export default function BookingList() {
   }, [bookings.length]);
 
   async function deleteBooking(id: any) {
-    const token=localStorage.getItem('accessToken')
     await fetch(`http://localhost:8080/api/booking/${id}`, {
       method: "DELETE",
       headers: {
@@ -107,7 +104,6 @@ export default function BookingList() {
               <th>Driver ID</th>
               <th>Start Date</th>
               <th>End Date</th>
-              <th>Total Price</th>
               <th>Status</th>
               <th>Action</th>
             </tr>

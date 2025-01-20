@@ -8,15 +8,74 @@ export default function Booking() {
     driverID: "",
     startDate: "",
     endDate: "",
-    totalPrice: "",
     status: "",
   });
-  const [vehicles, setvehicles] = useState([]);
-  const [drivers, setdrivers] = useState([]);
+  const [vehicles, setVehicles] = useState([]);
+  const [drivers, setDrivers] = useState([]);
   const [isNew, setIsNew] = useState(true);
   const [errors, setErrors] = useState({});
   const { id } = useParams();
   const navigate = useNavigate();
+
+  // Fetch vehicle price dynamically
+  async function getPrice(vehicleID) {
+    try {
+      const response = await fetch(`http://localhost:8080/api/vehicles/${vehicleID}`);
+      if (!response.ok) throw new Error("Failed to fetch vehicle price");
+
+      const vehicle = await response.json();
+      return vehicle.price || 0; // Assume `price` field contains the vehicle price
+    } catch (error) {
+      console.error("Error fetching vehicle price:", error);
+      return 0; // Default to 0 if fetching price fails
+    }
+  }
+
+  const updateForm = (value) =>
+    setForm((prev) => ({ ...prev, ...value }));
+
+  const validateForm = () => {
+    const newErrors = {};
+    if (!form.bookingID.trim()) newErrors.bookingID = "Booking ID is required.";
+    if (!form.vehicleID.trim()) newErrors.vehicleID = "Vehicle ID is required.";
+    if (!form.driverID.trim()) newErrors.driverID = "Driver ID is required.";
+    if (!form.startDate.trim()) newErrors.startDate = "Start date is required.";
+    if (!form.endDate.trim()) newErrors.endDate = "End date is required.";
+    if (!form.status) newErrors.status = "Status is required.";
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validateForm()) return;
+
+    try {
+      const method = isNew ? "POST" : "PATCH";
+      const endpoint = isNew
+        ? "http://localhost:8080/api/booking"
+        : `http://localhost:8080/api/booking/${id}`;
+      const response = await fetch(endpoint, {
+        method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      if (!response.ok)
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      setForm({
+        bookingID: "",
+        vehicleID: "",
+        driverID: "",
+        startDate: "",
+        endDate: "",
+        status: "",
+      });
+      navigate("/booking");
+    } catch (error) {
+      console.error("Error saving booking:", error);
+    }
+  };
 
   useEffect(() => {
     if (!id) return;
@@ -43,70 +102,25 @@ export default function Booking() {
   }, [id, navigate]);
 
   useEffect(() => {
-    async function getdrivers() {
+    async function getDrivers() {
       const response = await fetch("http://localhost:8080/api/drivers");
-      const Drivers = await response.json();
-      setdrivers(Drivers);
+      const drivers = await response.json();
+      setDrivers(drivers);
     }
-    getdrivers();
+    getDrivers();
   }, []);
 
   useEffect(() => {
-    async function getvehicles() {
+    async function getVehicles() {
       const response = await fetch("http://localhost:8080/api/vehicles");
-      const Vehicles = await response.json();
-      setvehicles(Vehicles);
+      const vehicles = await response.json();
+      setVehicles(vehicles);
     }
-    getvehicles();
+    getVehicles();
   }, []);
 
-  const updateForm = (value: Partial<typeof form>) =>
-    setForm((prev) => ({ ...prev, ...value }));
 
-  const validateForm = () => {
-    const newErrors: Record<string, string> = {};
-    if (!form.bookingID.trim()) newErrors.bookingID = "Booking ID is required.";
-    if (!form.vehicleID.trim()) newErrors.vehicleID = "Vehicle ID is required.";
-    if (!form.driverID.trim()) newErrors.driverID = "Driver ID is required.";
-    if (!form.startDate.trim()) newErrors.startDate = "Start date is required.";
-    if (!form.endDate.trim()) newErrors.endDate = "End date is required.";
-    if (!form.totalPrice) newErrors.totalPrice = "Total price is required.";
-    if (!form.status) newErrors.status = "Status is required.";
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!validateForm()) return;
-
-    try {
-      const method = isNew ? "POST" : "PATCH";
-      const endpoint = isNew
-        ? "http://localhost:8080/api/booking"
-        : `http://localhost:8080/api/booking/${id}`;
-      const response = await fetch(endpoint, {
-        method,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-
-      if (!response.ok)
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      setForm({
-        bookingID: "",
-        vehicleID: "",
-        driverID: "",
-        startDate: "",
-        endDate: "",
-        totalPrice: "",
-        status: "",
-      });
-      navigate("/booking");
-    } catch (error) {
-      console.error("Error saving booking:", error);
-    }
-  };
 
   return (
     <>
@@ -119,6 +133,7 @@ export default function Booking() {
             share.
           </p>
 
+          {/* Booking ID */}
           <div className="mb-3">
             <label htmlFor="bookingID" className="form-label">
               Booking ID
@@ -136,6 +151,7 @@ export default function Booking() {
             )}
           </div>
 
+          {/* Driver Selector */}
           <div className="mb-3">
             <label htmlFor="driverID" className="form-label">
               Driver ID
@@ -147,8 +163,8 @@ export default function Booking() {
               onChange={(e) => updateForm({ driverID: e.target.value })}
             >
               <option value="">Select a Driver</option>
-              {Array.isArray(drivers) && drivers.length > 0 ? (
-                drivers.map((driver: any) => (
+              {drivers.length > 0 ? (
+                drivers.map((driver) => (
                   <option key={driver._id} value={driver.driverID}>
                     {driver.name} ({driver.driverID})
                   </option>
@@ -157,12 +173,12 @@ export default function Booking() {
                 <option disabled>No drivers available</option>
               )}
             </select>
-
             {errors.driverID && (
               <p className="text-danger">{errors.driverID}</p>
             )}
           </div>
 
+          {/* Start Date */}
           <div className="mb-3">
             <label htmlFor="startDate" className="form-label">
               Start Date
@@ -179,6 +195,7 @@ export default function Booking() {
             )}
           </div>
 
+          {/* End Date */}
           <div className="mb-3">
             <label htmlFor="endDate" className="form-label">
               End Date
@@ -193,6 +210,7 @@ export default function Booking() {
             {errors.endDate && <p className="text-danger">{errors.endDate}</p>}
           </div>
 
+          {/* Vehicle Selector */}
           <div className="mb-3">
             <label htmlFor="vehicleID" className="form-label">
               Vehicle ID
@@ -204,36 +222,20 @@ export default function Booking() {
               onChange={(e) => updateForm({ vehicleID: e.target.value })}
             >
               <option value="">Select a Vehicle</option>
-              {vehicles
-                .filter((vehicle) => {
-                  // Convert `vehicle.endDate` and `form.startDate` to Date objects for comparison
-                  const vehicleEndDate = new Date(vehicle.endDate);
-                  const formStartDate = new Date(form.startDate);
-                  return vehicleEndDate < formStartDate;
-                })
-                .map((vehicle) => (
-                  <option key={vehicle._id} value={vehicle.vehicleID}>
-                    {vehicle.name} ({vehicle.vehicleID})
-                  </option>
-                ))}
+              {vehicles.map((vehicle) => (
+                <option key={vehicle._id} value={vehicle.vehicleID}>
+                  {vehicle.name} ({vehicle.vehicleID})
+                </option>
+              ))}
             </select>
             {errors.vehicleID && (
               <p className="text-danger">{errors.vehicleID}</p>
             )}
           </div>
 
-          <div className="mb-3">
-            <label htmlFor="totalPrice" className="form-label">
-              Total Price
-            </label>
-            <p id="totalPrice" className="form-control-plaintext">
-              {form.totalPrice ? `$${form.totalPrice}` : "Not calculated yet"}
-            </p>
-            {errors.totalPrice && (
-              <p className="text-danger">{errors.totalPrice}</p>
-            )}
-          </div>
+    
 
+          {/* Booking Status */}
           <div className="mb-4">
             <fieldset>
               <legend className="sr-only">Booking Status</legend>
@@ -265,7 +267,6 @@ export default function Booking() {
                   Unpaid
                 </label>
               </div>
-              {errors.status && <p className="text-danger">{errors.status}</p>}
             </fieldset>
           </div>
         </div>
@@ -277,3 +278,4 @@ export default function Booking() {
     </>
   );
 }
+

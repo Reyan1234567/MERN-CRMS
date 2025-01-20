@@ -8,7 +8,11 @@ const Login = () => {
 
   async function fetchData() {
     try {
-      const response = await fetch("http://localhost:8080/api/login");
+      const response = await fetch("http://localhost:8080/api/login",{
+        method: "POST",
+        headers: { "Content-Type": "application/json"},
+        body: JSON.stringify(form),
+      });
 
       if (!response.ok) {
         console.error(`Error: HTTP status ${response.status}`);
@@ -23,10 +27,11 @@ const Login = () => {
       console.error("An error occurred while fetching data:", error);
     }
   }
+  fetchData()
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    setErrorMessage(""); // Clear previous error
+    setErrorMessage(""); 
 
     if (!form.userID || !form.password) {
       setErrorMessage("Both fields are required!");

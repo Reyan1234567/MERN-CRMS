@@ -39,7 +39,7 @@ router.patch("/:id", async (req, res) => {
   try {
     const updates = req.body;
     const result = await Drivers.findByIdAndUpdate(req.params.id, updates, {
-      new: true, // Return the updated document
+      new: true,
     });
     if (!result) return res.status(404).send("Driver not found");
     res.status(200).json(result);
@@ -61,11 +61,3 @@ router.delete("/:id", async (req, res) => {
 });
 
 export default router;
-
-
-
-
-
-
-
-

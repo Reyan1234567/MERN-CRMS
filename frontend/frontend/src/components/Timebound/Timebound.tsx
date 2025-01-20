@@ -6,6 +6,7 @@ export default function Timebound() {
     timeBoundID: "",
     date: "",
     description: "",
+    amount:""
   });
   const [isNew, setIsNew] = useState(true);
   const params = useParams();
@@ -25,7 +26,7 @@ export default function Timebound() {
       const timebound = await response.json();
       if (!timebound) {
         console.warn(`Timebound with id ${id} not found`);
-        navigate("/timebounds");
+        navigate("/timebound");
         return;
       }
       setForm(timebound);
@@ -76,8 +77,9 @@ export default function Timebound() {
         timeBoundID: "",
         date: "",
         description: "",
+        amount:""
       });
-      navigate("/timebounds");
+      navigate("/timebound");
     }
   }
 
@@ -134,6 +136,19 @@ export default function Timebound() {
               value={form.description}
               onChange={(e) => updateForm({ description: e.target.value })}
             ></textarea>
+          </div>
+          <div>
+          <label htmlFor="amount" className="form-label">
+              Amount
+            </label>
+            <input
+              type="number"
+              name="amount"
+              id="amount"
+              className="form-control"
+              value={form.amount}
+              onChange={(e) => updateForm({ amount: e.target.value })}
+            />
           </div>
         </div>
 

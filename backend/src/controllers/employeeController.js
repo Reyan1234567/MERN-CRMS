@@ -26,28 +26,27 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-    try {
-      const { userID, ...employeeData } = req.body;
-  
-      const userInAuth = await Authentication.findOne({ userID });
-      if (!userInAuth) {
-        return res.status(404).send("User not found in authentication");
-      }
-  
-      const existingEmployee = await Employees.findOne({ userID });
-      if (existingEmployee) {
-        return res.status(409).send("Employee with this userID already exists");
-      }
-  
-      const newEmployee = new Employees({ userID, ...employeeData });
-      const result = await newEmployee.save();
-      res.status(201).json(result);
-    } catch (err) {
-      console.error("Error adding employee:", err.message);
-      res.status(500).send("Error adding record");
+  try {
+    const { userID, ...employeeData } = req.body;
+
+    const userInAuth = await Authentication.findOne({ userID });
+    if (!userInAuth) {
+      return res.status(404).send("User not found in authentication");
     }
-  });
-  
+
+    const existingEmployee = await Employees.findOne({ userID });
+    if (existingEmployee) {
+      return res.status(409).send("Employee with this userID already exists");
+    }
+
+    const newEmployee = new Employees({ userID, ...employeeData });
+    const result = await newEmployee.save();
+    res.status(201).json(result);
+  } catch (err) {
+    console.error("Error adding employee:", err.message);
+    res.status(500).send("Error adding record");
+  }
+});
 
 router.patch("/:id", async (req, res) => {
   try {

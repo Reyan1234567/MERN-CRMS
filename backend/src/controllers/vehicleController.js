@@ -13,6 +13,17 @@ router.get("/num", async (req, res) => {
   }
 });
 
+router.get("/vehicleID/:id", async (req, res) => { 
+  try {
+    const vehicle = await Vehicle.findOne(v=>v.vehicleID);
+    if (!vehicle) return res.status(404).send("Vehicle not found");
+    res.status(200).json(vehicle);
+  } catch (err) {
+    console.error("Error fetching vehicle:", err.message);
+    res.status(500).send("Error fetching record");
+  }
+});
+
 router.get("/", async (req, res) => {
   try {
     const vehicles = await Vehicle.find();
@@ -20,17 +31,6 @@ router.get("/", async (req, res) => {
   } catch (err) {
     console.error("Error fetching vehicles:", err.message);
     res.status(500).send("Error fetching records");
-  }
-});
-
-router.get("/:id", async (req, res) => {
-  try {
-    const vehicle = await Vehicle.findById(req.params.id);
-    if (!vehicle) return res.status(404).send("Vehicle not found");
-    res.status(200).json(vehicle);
-  } catch (err) {
-    console.error("Error fetching vehicle:", err.message);
-    res.status(500).send("Error fetching record");
   }
 });
 
